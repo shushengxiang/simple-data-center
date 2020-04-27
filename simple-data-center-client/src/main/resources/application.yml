@@ -1,3 +1,19 @@
 simple:
   datacenter:
-    zkaddress: 192.168.3.117:2281
+    type: redis # zk时需要下面zk的配置，redis时需要spring redis的配置
+    zk:
+      address: 192.168.3.117:2281
+
+spring:
+  redis:
+    host: 192.168.1.174
+    password: jredis123456
+    port: 6384
+    database: 11
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-wait: 1ms
+        max-active: 8
+      shutdown-timeout: 100ms

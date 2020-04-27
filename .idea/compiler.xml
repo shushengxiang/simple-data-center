@@ -10,10 +10,5 @@
         <module name="simple-data-center-client" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="example" target="1.8" />
-      <module name="simple-data-center" target="1.8" />
-      <module name="simple-data-center-client" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

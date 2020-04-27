@@ -3,12 +3,16 @@ package com.simple.data.center.client.listener;
 import com.simple.data.center.client.annotation.DataCenter;
 import com.simple.data.center.client.annotation.DataCenterField;
 import com.simple.data.center.client.model.DataCenterMetadata;
+import com.simple.data.center.client.registry.DataCenterRegistry;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -22,11 +26,19 @@ import java.util.Properties;
  * @Date 2020/4/3 15:57
  **/
 @Slf4j
-public abstract class AbstractListener implements Listener,BeanFactoryAware,ApplicationContextAware {
+public abstract class AbstractListener implements Listener{
 
+    @Getter
+    @Setter
     protected BeanFactory beanFactory;
 
-    protected ApplicationContext applicationContext;
+    public void init(){
+        log.info("Start listener init");
+        if (CollectionUtils.isEmpty(DataCenterRegistry.getDataCenterMetadataSet())){
+            return;
+        }
+        DataCenterRegistry.getDataCenterMetadataSet().forEach(k -> listen(k));
+    };
 
     public void refresh(DataCenterMetadata dataCenterMetadata, String data){
         log.info("refresh data {} for this datacenter {}",data,dataCenterMetadata);
@@ -69,13 +81,4 @@ public abstract class AbstractListener implements Listener,BeanFactoryAware,Appl
     }
 
 
-    @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = beanFactory;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 }

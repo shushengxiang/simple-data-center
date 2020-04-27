@@ -99,6 +99,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -109,20 +117,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <!-- use the following if you're not using a snapshot version. -->
-        <repository>
-            <id>artifactory</id>
-            <name>ximalaya-releases</name>
-            <url>http://artifactory.ximalaya.com/artifactory/ximalaya-releases/</url>
-        </repository>
-        <!-- use the following if you ARE using a snapshot version. -->
-        <snapshotRepository>
-            <id>artifactory</id>
-            <name>ximalaya-snapshots</name>
-            <url>http://artifactory.ximalaya.com/artifactory/ximalaya-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>

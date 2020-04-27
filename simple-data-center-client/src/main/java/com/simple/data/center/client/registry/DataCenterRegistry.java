@@ -26,6 +26,12 @@ import java.util.Set;
 @Slf4j
 public class DataCenterRegistry implements ImportBeanDefinitionRegistrar {
 
+    private static Set<DataCenterMetadata> dataCenterMetadataSet = new HashSet<>();
+
+    public static Set<DataCenterMetadata> getDataCenterMetadataSet(){
+        return dataCenterMetadataSet;
+    }
+
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
                                         BeanDefinitionRegistry registry,
@@ -39,17 +45,16 @@ public class DataCenterRegistry implements ImportBeanDefinitionRegistrar {
             return;
         }
 
-        Set<DataCenterMetadata> dataCenterMetadataSet = new HashSet<>();
         classes.forEach( clazz -> {
             dataCenterMetadataSet.add(
                     DataCenterMetadata.builder().clazz(clazz).id(clazz.getAnnotation(DataCenter.class).value()).build());
         });
 
-        BeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(ZKListener.class)
-                .addPropertyValue("dataCenterMetadataSet", dataCenterMetadataSet)
-                .getBeanDefinition();
-
-        registry.registerBeanDefinition(ZKListener.class.getName(),beanDefinition);
+//        BeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(ZKListener.class)
+//                .addPropertyValue("dataCenterMetadataSet", dataCenterMetadataSet)
+//                .getBeanDefinition();
+//
+//        registry.registerBeanDefinition(ZKListener.class.getName(),beanDefinition);
     }
 
     private String[] getBasePackages(AnnotationMetadata importingClassMetadata) {

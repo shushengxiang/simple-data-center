@@ -12,6 +12,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "simple.datacenter")
 public class DataCenterProperties {
 
-    private String zkAddress;
+    private String type;
 
 }
